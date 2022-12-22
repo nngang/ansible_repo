@@ -1,0 +1,11 @@
+---
+- hosts: all
+  name: printing msg
+  tasks:
+  - name: print out a massage on the machine 
+    debug: 
+     msg: 
+      - "today is the 2nd sunday of december 2022. the ansible engine is connect to a aws instance"
+      - "this is to show that the message will dispay on the next line" 
+      - "test line 3. this is going to print on the next line"
+
