@@ -1,0 +1,49 @@
+
+---
+
+- host: centos-server 
+
+  become: yes 
+  
+  tasks:
+  
+  - name: update the server 
+  
+    shell: yum update -y 
+ 
+  - name: install docker 
+  
+    shell: yum install -y yum-utils device-mapper-presistent-data lmv2
+	
+  - name: download an additional yum repo
+  
+    shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo 
+	
+  - name: again update the server
+  
+    shell: yum update -y
+	
+  - name: install the docker server 
+    
+	shell: yum update -y 
+
+  - name: start docker daemon
+
+    shell: systemctl start docker 
+
+  - name: now we get the daemon to stay up perminently 
+
+    shell: systemctl enable docker 
+  
+  - name: disable selinux in ram
+  
+    shell: setenforece 0
+	
+  - name: perminently disable selinux
+  
+    shell: replace: path=/etc/sysconfig/selinux regexp='SELINUX=enforecing' replace='SELINUX=disabled'
+	
+  - name: verify that the docker server is installed 
+  
+    shell: docker --version
+	
